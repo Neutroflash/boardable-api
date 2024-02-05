@@ -1,6 +1,13 @@
 import express from "express"
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+import pool from "pg"
+import cors from "cors"
 
 const app = express ();
-const port = 5500;
+app.use(express.json());
+app.use(cors());
 
-app.listen(port, () => console.log(`Escuchando al puerto ${port}`))
+app.listen(5500, () => {
+    console.log('El servidor está corriendo en el puerto 3000');
+  });
