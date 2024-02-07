@@ -1,13 +1,18 @@
-import express from "express"
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
-import pool from "pg"
-import cors from "cors"
+import { configDotenv } from "dotenv";
+import express from "express";
+import errorHandler from "./middleware/error";
 
-const app = express ();
+
+if (process.env["NODE_ENV"] === "test") {
+  configDotenv({ path: ".env.test" });
+} else {
+  configDotenv();
+}
+
+export const app = express();
+
 app.use(express.json());
-app.use(cors());
-
-app.listen(5500, () => {
-    console.log('El servidor está corriendo en el puerto 3000');
-  });
+app.use(errorHandler);
+app.get('/', (req, res) => {
+  res.send('API de Boardable');
+});
