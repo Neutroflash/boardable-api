@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Role } from "@prisma/client";
 import { userSchema, UserParams } from "../models/userModel";
 import { ApiError } from "../middleware/error";
 
@@ -15,7 +15,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         email: userData.email,
         firstName: userData.firstName,
         lastName: userData.lastName,
-        role: userData.role,
+        role: userData.role as Role, 
       },
     });
     res.json(user);
@@ -60,7 +60,7 @@ export const updateUser = async (req: Request, res: Response, next: NextFunction
         email: userData.email,
         firstName: userData.firstName,
         lastName: userData.lastName,
-        role: userData.role,
+        role: userData.role as Role,
       },
     });
     res.json(updatedUser);

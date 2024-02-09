@@ -5,18 +5,20 @@ import { ApiError } from "../middleware/error";
 const prisma = new PrismaClient();
 
 export const createBoard = async (req: Request, res: Response, next: any) => {
-  try {
-    const { title } = req.body;
-    const newBoard = await prisma.board.create({
-      data: {
-        title,
-      },
-    });
-    res.json(newBoard);
-  } catch (error) {
-    next(error);
-  }
-};
+    try {
+      const { title, color, creatorId } = req.body;
+      const newBoard = await prisma.board.create({
+        data: {
+          title,
+          color,
+          creator: { connect: { id: creatorId } }
+        },
+      });
+      res.json(newBoard);
+    } catch (error) {
+      next(error);
+    }
+  };
 
 export const getAllBoards = async (req: Request, res: Response, next: any) => {
   try {
